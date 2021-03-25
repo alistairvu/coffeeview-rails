@@ -1,0 +1,10 @@
+{
+  "name": "coffeeview-rails",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alistair Vu <alistairvu@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "heroku local -f Procfile.dev"
+  }
+}
