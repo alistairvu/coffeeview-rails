@@ -5,7 +5,7 @@ class CafesController < ApplicationController
   def index
     page_number = params[:page].to_i > 1 ? params[:page].to_i : 1
     offset = (page_number - 1) * 12
-    cafes = Cafe.limit(12).offset(offset)
+    cafes = Cafe.where(is_shown: true).limit(12).offset(offset)
     render json: {
       status: 200,
       offset: offset,
