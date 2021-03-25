@@ -1,61 +1,44 @@
 class UsersController < ApplicationController
   include CurrentUserConcern
+  before_action :check_login
 
   def show
-    if @current_user && (@current_user.id == params[:id].to_i || @current_user.is_admin)
-      user = User.find(params[:id])
-      render json: {
-        status: :success,
-        user: user,
-      }
-    else
-      render json: {
-        message: "You cannot read this user's data",
-      }, status: 401
-    end
+    user = User.find(params[:id])
+    render json: {
+             status: :success,
+             user: user,
+           }
   end
 
   def update
-    if @current_user && (@current_user.id == params[:id].to_i || @current_user.is_admin)
-      user = User.find(params[:id])
+    user = User.find(params[:id])
 
-      if user.update(user_params)
-        render json: {
-          status: :success,
-          updated: true,
-          user: user,
-        }
-      else
-        render json: {
-          status: 500,
-        }
-      end
+    if user.update(user_params)
+      render json: {
+               status: :success,
+               updated: true,
+               user: user,
+             }
     else
       render json: {
-        message: "You cannot update this user",
-      }, status: 401
+               status: 500,
+             }
     end
   end
 
   def destroy
-    if @current_user && (@current_user.id == params[:id].to_i || @current_user.is_admin)
-      user = User.find(params[:id])
+    user = User.find(params[:id])
 
-      if user.destroy
-        reset_session
-        render json: {
-          status: :success,
-          destroyed: true,
-        }
-      else
-        render json: {
-          status: 500,
-        }
-      end
+    if user.destroy
+      reset_session
+      render json: {
+               status: :success,
+               destroyed: true,
+             }
     else
       render json: {
-        message: "You cannot delete this user",
-      }, status: 401
+               status: 500,
+             }
     end
   end
 
@@ -63,5 +46,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :is_admin, :email)
+  end
+
+  def check_login
+    unless @current_user && (@current_user.id == params[:id].to_i || @current_user.is_admin)
+      render json: {
+        message: "You cannot do this action",
+      }, status: 401
+    end
   end
 end

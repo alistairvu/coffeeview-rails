@@ -6,7 +6,6 @@ module Auth
       user = User.find_by(email: session_params[:email]).try(:authenticate, session_params[:password])
 
       if user
-        puts "Found"
         session[:user_id] = user.id
         render json: {
                  status: :created,
@@ -14,7 +13,6 @@ module Auth
                  user: user,
                }
       else
-        puts "Not found"
         render json: {
                  message: "Incorrect email or password",
                }, status: 401
