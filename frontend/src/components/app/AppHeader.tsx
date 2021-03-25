@@ -8,14 +8,17 @@ import { LinkContainer } from "react-router-bootstrap"
 import axios from "axios"
 import { logoutUser } from "../../redux/user"
 import { useHistory } from "react-router-dom"
+import { useState } from "react"
 
 const AppHeader: React.FC = () => {
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false)
   const { isLoggedIn, userInfo } = useSelector((state: rootState) => state.user)
   const dispatch = useDispatch()
   const history = useHistory()
 
   const handleLogout = async () => {
     try {
+      setIsLoggingOut(true)
       const { data } = await axios.delete("/api/auth/logout")
       if (data.logged_out) {
         dispatch(logoutUser())
@@ -23,6 +26,8 @@ const AppHeader: React.FC = () => {
       }
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoggingOut(false)
     }
   }
 
@@ -50,7 +55,9 @@ const AppHeader: React.FC = () => {
           id="user-selections"
         >
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
+          <NavDropdown.Item onClick={handleLogout} disabled={isLoggingOut}>
+            {isLoggingOut ? "Logging out..." : "Log out"}
+          </NavDropdown.Item>
         </NavDropdown>
       </Nav>
     )
