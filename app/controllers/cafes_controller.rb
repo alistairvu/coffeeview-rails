@@ -34,7 +34,7 @@ class CafesController < ApplicationController
   def show
     cafe = Cafe.find_by(slug: params[:id])
 
-    if cafe
+    if cafe and cafe.is_shown
       render json: {
         status: :success,
         cafe: cafe,
