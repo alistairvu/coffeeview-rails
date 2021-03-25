@@ -17,4 +17,5 @@ Cafe.create(name: "Starbucks Charmvit",
             address: "Charm Vit Tower A, 117 Trần Duy Hưng, Trung Hoà, Cầu Giấy, Hà Nội 100000, Vietnam",
             price: "4",
             hours: "6:30am-6pm",
-            images: ["https://www.google.com/maps/uv?pb=!1s0x3135aca6eb8e05a3:0xe02d23034fbf190a!3m1!7e115!4shttps://lh5.googleusercontent.com/p/AF1QipPagc9Y66ir42u80hZhK7ahK0rSqOYEfO9K5xk%3Dw239-h160-k-no!5sstarbucks+charmvit+-+Google+Search!15zQ2dJZ0FRPT0&imagekey=!1e10!2sAF1QipPagc9Y66ir42u80hZhK7ahK0rSqOYEfO9K5xk&hl=en&sa=X&ved=2ahUKEwi3ypPjkcvvAhUKE6YKHfHyB5IQoiowE3oECCEQAw"])
+            images: ["https://www.google.com/maps/uv?pb=!1s0x3135aca6eb8e05a3:0xe02d23034fbf190a!3m1!7e115!4shttps://lh5.googleusercontent.com/p/AF1QipPagc9Y66ir42u80hZhK7ahK0rSqOYEfO9K5xk%3Dw239-h160-k-no!5sstarbucks+charmvit+-+Google+Search!15zQ2dJZ0FRPT0&imagekey=!1e10!2sAF1QipPagc9Y66ir42u80hZhK7ahK0rSqOYEfO9K5xk&hl=en&sa=X&ved=2ahUKEwi3ypPjkcvvAhUKE6YKHfHyB5IQoiowE3oECCEQAw"],
+            is_shown: true)

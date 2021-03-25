@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     end
 
     resources :users, only: [:show, :update, :destroy]
-    resources :cafes, only: [:create, :show, :update, :destroy]
+    resources :cafes, only: [:create, :show, :update, :destroy, :index]
   end
 end
