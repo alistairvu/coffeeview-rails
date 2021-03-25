@@ -37,12 +37,12 @@ const AuthLoginForm: React.FC = () => {
       )
       console.log(data)
       if (data.logged_in) {
+        setIsLoggingIn(false)
         dispatch(loginUser(data.user))
         history.push("/")
       }
     } catch (err) {
       setLoginError(err.response.data.message)
-    } finally {
       setIsLoggingIn(false)
     }
   }

@@ -2,12 +2,12 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Card from "react-bootstrap/Card"
-import { AuthLoginForm } from "../components/auth"
+import { AuthSignUpForm } from "../components/auth"
 import useUser from "../hooks/useUser"
 import { useEffect } from "react"
 import { useHistory, Link } from "react-router-dom"
 
-const LoginPage: React.FC = () => {
+const SignUpPage: React.FC = () => {
   const history = useHistory()
   const { isLoggedIn } = useUser()
 
@@ -19,15 +19,15 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container className="pt-3">
-      <h1>Log In</h1>
+      <h1>Sign Up</h1>
       <Row>
         <Col lg={6} className="offset-lg-3">
           <Card>
             <Card.Body>
-              <AuthLoginForm />
+              <AuthSignUpForm />
               <p className="pt-3">
-                New to coffeeview?{" "}
-                <Link to="/register">Click here to sign up.</Link>{" "}
+                Returning to coffeeview?{" "}
+                <Link to="/login">Click here to log in.</Link>{" "}
               </p>
             </Card.Body>
           </Card>
@@ -37,4 +37,4 @@ const LoginPage: React.FC = () => {
   )
 }
 
-export default LoginPage
+export default SignUpPage

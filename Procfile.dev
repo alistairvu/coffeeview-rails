@@ -1,2 +1,2 @@
-web: bundle exec rails s -p 5000
+web: bundle exec rails s -p 4000
 app: yarn --cwd frontend start 

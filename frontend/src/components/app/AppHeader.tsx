@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { LinkContainer } from "react-router-bootstrap"
 import axios from "axios"
 import { logoutUser } from "../../redux/user"
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import { useState } from "react"
 
 const AppHeader: React.FC = () => {
@@ -15,6 +15,7 @@ const AppHeader: React.FC = () => {
   const { isLoggedIn, userInfo } = useSelector((state: rootState) => state.user)
   const dispatch = useDispatch()
   const history = useHistory()
+  const location = useLocation()
 
   const handleLogout = async () => {
     try {
@@ -34,21 +35,21 @@ const AppHeader: React.FC = () => {
   const renderNavOptions = () => {
     if (!isLoggedIn) {
       return (
-        <Nav className="ms-auto">
+        <Nav className="ms-auto" activeKey={location.pathname}>
           <LinkContainer to="/browse">
-            <Nav.Link>Browse</Nav.Link>
+            <Nav.Link eventKey="browse">Browse</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/login">
-            <Nav.Link>Log In</Nav.Link>
+            <Nav.Link eventKey="login">Log In</Nav.Link>
           </LinkContainer>
         </Nav>
       )
     }
 
     return (
-      <Nav className="ms-auto">
+      <Nav className="ms-auto" activeKey={location.pathname}>
         <LinkContainer to="/browse">
-          <Nav.Link>Browse</Nav.Link>
+          <Nav.Link eventKey="browse">Browse</Nav.Link>
         </LinkContainer>
         <NavDropdown
           title={`Hello, ${userInfo.first_name}`}
