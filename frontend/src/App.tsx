@@ -1,20 +1,49 @@
-import Container from "react-bootstrap/Container"
 import { AppHeader } from "./components/app"
+import axios from "axios"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { loginUser, logoutUser } from "./redux/user"
+import { HomePage, LoginPage } from "./pages"
+import { Switch, Route } from "react-router-dom"
 
 const App: React.FC = () => {
+  const dispatch = useDispatch()
+
+  const checkAuth = async () => {
+    try {
+      const { data } = await axios.get("/api/auth/logged_in", {
+        withCredentials: true,
+      })
+
+      if (data.logged_in) {
+        dispatch(loginUser(data.user))
+      } else {
+        dispatch(logoutUser())
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    checkAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <header>
         <AppHeader />
       </header>
       <main>
-        <Container className="text-center py-5">
-          <h1>Welcome to React!</h1>
-          <h3 style={{ fontSize: 30 }}>
-            Get started by editing{" "}
-            <code style={{ color: "red" }}>src/App.tsx</code>
-          </h3>
-        </Container>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
+        </Switch>
       </main>
     </>
   )

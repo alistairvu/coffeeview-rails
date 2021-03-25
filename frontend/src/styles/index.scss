@@ -1,1 +1,11 @@
+@import "./_sandstone_variables.scss";
 @import "~bootstrap/scss/bootstrap.scss";
+@import "./_sandstone_bootswatch.scss";
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  font-weight: 600;
+}
