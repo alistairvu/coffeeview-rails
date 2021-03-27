@@ -1,6 +1,7 @@
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import renderPrice from "../../utils/renderPrice"
+import { Link } from "react-router-dom"
 
 const BrowseCard: React.FC<CafeInterface> = (props) => {
   return (
@@ -8,8 +9,13 @@ const BrowseCard: React.FC<CafeInterface> = (props) => {
       <Card>
         <Card.Img variant="top" src={props.images[0]} />
         <Card.Body>
-          <Card.Title style={{ fontWeight: 700 }}>{props.name}</Card.Title>
+          <Card.Title style={{ fontWeight: 700 }}>
+            <Link to={`/cafe/${props.slug}`} style={{ textDecoration: "none" }}>
+              {props.name}
+            </Link>
+          </Card.Title>
           <Card.Text>
+            <strong>{props.avg_rating}</strong> / 5.0 |{" "}
             <strong>{renderPrice(props.price)}</strong> <br />
             <strong>Address: </strong>
             {props.address}

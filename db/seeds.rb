@@ -6,16 +6,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(first_name: "John", last_name: "Doe",
-             email: "john@example.com", password: "123456", password_confirmation: "123456")
+if Rails.env.development?
+  User.create!(first_name: "John", last_name: "Doe",
+               email: "john@example.com", password: "123456", password_confirmation: "123456")
 
-User.create!(first_name: "Jane", last_name: "Doe", email: "jane@example.com", password: "123456", password_confirmation: "123456", is_admin: true)
+  User.create!(first_name: "Jane", last_name: "Doe", email: "jane@example.com", password: "123456", password_confirmation: "123456", is_admin: true)
 
-Cafe.create(name: "Starbucks Charmvit",
-            description: "Seattle-based coffeehouse chain known for its signature roasts, light bites and WiFi availability.",
-            district: "Cau Giay",
-            address: "Charm Vit Tower A, 117 Trần Duy Hưng, Trung Hoà, Cầu Giấy, Hà Nội 100000, Vietnam",
-            price: "4",
-            hours: "6:30am-6pm",
-            images: ["https://www.google.com/maps/uv?pb=!1s0x3135aca6eb8e05a3:0xe02d23034fbf190a!3m1!7e115!4shttps://lh5.googleusercontent.com/p/AF1QipPagc9Y66ir42u80hZhK7ahK0rSqOYEfO9K5xk%3Dw239-h160-k-no!5sstarbucks+charmvit+-+Google+Search!15zQ2dJZ0FRPT0&imagekey=!1e10!2sAF1QipPagc9Y66ir42u80hZhK7ahK0rSqOYEfO9K5xk&hl=en&sa=X&ved=2ahUKEwi3ypPjkcvvAhUKE6YKHfHyB5IQoiowE3oECCEQAw"],
-            is_shown: true)
+  Cafe.create(name: "Starbucks Charmvit",
+              description: "Seattle-based coffeehouse chain known for its signature roasts, light bites and WiFi availability.",
+              district: "Cau Giay",
+              address: "Charm Vit Tower A, 117 Trần Duy Hưng, Trung Hoà, Cầu Giấy, Hà Nội 100000, Vietnam",
+              price: "4",
+              hours: "6:30am-6pm",
+              images: ["https://media.foody.vn/res/g69/688220/prof/s/foody-mobile-21463229_17672929133-461-636409132441098086.jpg"],
+              is_shown: true)
+
+  Review.create(cafe_id: 1, user_id: 1, rating: 5, title: "This is an excellent cafe!", content: "I like this place a lot!")
+  Review.create(cafe_id: 1, user_id: 2, rating: 2, title: "This is a meh cafe!", content: "I don't really like this place...")
+end

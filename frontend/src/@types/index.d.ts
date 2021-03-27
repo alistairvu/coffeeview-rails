@@ -12,4 +12,5 @@ interface CafeInterface {
   images: string[]
   tags: string[]
   is_shown: boolean
+  avg_rating: number
 }

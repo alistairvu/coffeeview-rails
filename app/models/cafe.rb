@@ -1,6 +1,8 @@
 class Cafe < ApplicationRecord
   before_validation :slugify
 
+  has_many :reviews
+
   validates_uniqueness_of :slug
   self.table_name = "cafes"
 

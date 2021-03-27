@@ -3,9 +3,9 @@ import Container from "react-bootstrap/Container"
 const HomePage: React.FC = () => {
   return (
     <Container className="text-center py-3">
-      <h1>Welcome to React!</h1>
+      <h1>Welcome to coffeeview!</h1>
       <h3 style={{ fontSize: 30 }}>
-        Get started by editing <code style={{ color: "red" }}>src/App.tsx</code>
+        Get started by logging in, signing up, or browsing around!
       </h3>
     </Container>
   )

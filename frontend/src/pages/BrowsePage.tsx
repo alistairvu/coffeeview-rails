@@ -2,35 +2,24 @@ import Container from "react-bootstrap/Container"
 import Spinner from "react-bootstrap/Spinner"
 import axios from "axios"
 import Row from "react-bootstrap/Row"
-import { useState, useEffect } from "react"
+import Alert from "react-bootstrap/Alert"
 import { BrowseCard } from "../components/browse"
 import useSWR from "swr"
 
 const Browse: React.FC = () => {
-  const [cafesData, setCafesData] = useState<CafeInterface[]>([])
-  const [isCafeLoading, setIsCafeLoading] = useState<boolean>(false)
-
   const getCafeData = async () => {
     try {
-      setIsCafeLoading(true)
       const { data } = await axios.get("/api/cafes")
-      setCafesData(data.cafes)
       return data.cafes
     } catch (err) {
       console.log(err)
-    } finally {
-      setIsCafeLoading(false)
     }
   }
 
   const { data: swrData, error } = useSWR("/api/cafes", getCafeData)
 
-  useEffect(() => {
-    getCafeData()
-  }, [])
-
   const renderCafes = () => {
-    if (isCafeLoading) {
+    if (!swrData) {
       return (
         <div className="mt-3 d-flex justify-content-center align-items-center">
           <Spinner animation="border" />
@@ -38,9 +27,13 @@ const Browse: React.FC = () => {
       )
     }
 
+    if (error) {
+      return <Alert variant="danger">{error}</Alert>
+    }
+
     return (
       <Row>
-        {cafesData.map((cafe: CafeInterface) => (
+        {swrData.map((cafe: CafeInterface) => (
           <BrowseCard key={cafe.id} {...cafe} />
         ))}
       </Row>

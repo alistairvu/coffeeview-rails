@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_152313) do
+ActiveRecord::Schema.define(version: 2021_03_27_134240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(version: 2021_03_25_152313) do
     t.string "images", default: [], array: true
     t.string "tags", default: [], array: true
     t.boolean "is_shown", default: false
+    t.float "avg_rating", default: 0.0
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "title"
+    t.integer "rating"
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "cafe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cafe_id"], name: "index_reviews_on_cafe_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,4 +53,6 @@ ActiveRecord::Schema.define(version: 2021_03_25_152313) do
     t.boolean "is_admin", default: false
   end
 
+  add_foreign_key "reviews", "cafes"
+  add_foreign_key "reviews", "users"
 end
