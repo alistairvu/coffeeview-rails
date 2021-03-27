@@ -3,7 +3,7 @@ import axios from "axios"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { loginUser, logoutUser } from "./redux/user"
-import { HomePage, LoginPage, SignUpPage } from "./pages"
+import { HomePage, LoginPage, SignUpPage, BrowsePage } from "./pages"
 import { Switch, Route } from "react-router-dom"
 
 const App: React.FC = () => {
@@ -40,11 +40,14 @@ const App: React.FC = () => {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route exact path="/login">
+          <Route path="/login">
             <LoginPage />
           </Route>
-          <Route exact path="/register">
+          <Route path="/register">
             <SignUpPage />
+          </Route>
+          <Route path="/browse">
+            <BrowsePage />
           </Route>
         </Switch>
       </main>
