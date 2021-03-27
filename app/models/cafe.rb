@@ -1,5 +1,5 @@
 class Cafe < ApplicationRecord
-  before_validation :slugify
+  before_create :slugify
 
   has_many :reviews
 
