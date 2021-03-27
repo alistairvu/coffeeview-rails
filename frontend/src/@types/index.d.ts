@@ -14,3 +14,13 @@ interface CafeInterface {
   is_shown: boolean
   avg_rating: number
 }
+
+interface ReviewInterface {
+  id: number
+  title: string
+  rating: number
+  content: string
+  user_name: string
+  user_id: number
+  cafe_id: number
+}

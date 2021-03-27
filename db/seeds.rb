@@ -19,6 +19,7 @@ if Rails.env.development?
               price: "4",
               hours: "6:30am-6pm",
               images: ["https://media.foody.vn/res/g69/688220/prof/s/foody-mobile-21463229_17672929133-461-636409132441098086.jpg"],
+              tags: ["Parking space"],
               is_shown: true)
 
   Review.create(cafe_id: 1, user_id: 1, rating: 5, title: "This is an excellent cafe!", content: "I like this place a lot!")

@@ -49,22 +49,6 @@ class CafesController < ApplicationController
     end
   end
 
-  def reviews
-    cafe = Cafe.find_by(slug: params[:id])
-
-    if cafe and cafe.is_shown
-      render json: {
-        status: :success,
-        reviews: cafe.reviews,
-      }
-    else
-      render json: {
-        status: :not_found,
-        message: "No matching cafe found",
-      }, stauts: :not_found
-    end
-  end
-
   def update
     cafe = Cafe.find_by(slug: params[:id])
 

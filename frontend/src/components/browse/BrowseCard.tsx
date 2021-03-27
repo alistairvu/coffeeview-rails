@@ -7,7 +7,9 @@ const BrowseCard: React.FC<CafeInterface> = (props) => {
   return (
     <Col lg={3} md={4} sm={6}>
       <Card>
-        <Card.Img variant="top" src={props.images[0]} />
+        <Link to={`/cafe/${props.slug}`}>
+          <Card.Img variant="top" src={props.images[0]} />
+        </Link>
         <Card.Body>
           <Card.Title style={{ fontWeight: 700 }}>
             <Link to={`/cafe/${props.slug}`} style={{ textDecoration: "none" }}>

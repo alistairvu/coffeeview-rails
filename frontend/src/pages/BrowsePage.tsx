@@ -5,11 +5,19 @@ import Row from "react-bootstrap/Row"
 import Alert from "react-bootstrap/Alert"
 import { BrowseCard } from "../components/browse"
 import useSWR from "swr"
+import { useLocation } from "react-router-dom"
+import { useRef } from "react"
 
 const Browse: React.FC = () => {
+  const location = useLocation()
+  const pageNumberRef = useRef<number>(0)
+
   const getCafeData = async () => {
     try {
-      const { data } = await axios.get("/api/cafes")
+      const pageNumber = new URLSearchParams(location.search).get("page")
+      const url = pageNumber ? `/api/cafes?page=${pageNumber}` : "/api/cafes"
+      const { data } = await axios.get(url)
+      pageNumberRef.current = data.page_count
       return data.cafes
     } catch (err) {
       console.log(err)
@@ -39,8 +47,6 @@ const Browse: React.FC = () => {
       </Row>
     )
   }
-
-  console.log(swrData)
 
   return (
     <Container className="pt-3">
