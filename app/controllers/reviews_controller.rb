@@ -1,4 +1,7 @@
 class ReviewsController < ApplicationController
+  include CurrentUserConcern
+  before_action :check_login, except: [:cafe]
+
   def cafe
     cafe = Cafe.find_by(slug: params[:id])
 
@@ -15,6 +18,24 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def create
+    review = Review.create!(review_params)
+
+    if review
+      render json: {
+        status: :created,
+        success: true,
+        review: review_json(review),
+      }
+    else
+      render json: {
+        status: 500,
+        success: false,
+        message: "An error occurred",
+      }, status: 500
+    end
+  end
+
   private
 
   def review_json(review)
@@ -28,5 +49,19 @@ class ReviewsController < ApplicationController
       user_id: review[:user_id],
       cafe_id: review[:cafe_id],
     }
+  end
+
+  def check_login
+    unless @current_user
+      render json: {
+               message: "You cannot do this action",
+             }, status: 401
+    end
+  end
+
+  def review_params
+    body_params = params.require(:review).permit(:cafe_id, :title, :rating, :content)
+    body_params[:user_id] = @current_user.id
+    body_params
   end
 end

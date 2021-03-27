@@ -10,6 +10,6 @@ class Cafe < ApplicationRecord
 
   def slugify
     token = rand(36 ** 8).to_s(36)
-    self.slug = "#{self.name.parameterize}-#{token}"
+    self.slug ||= "#{self.name.parameterize}-#{token}"
   end
 end
