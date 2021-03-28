@@ -77,7 +77,7 @@ const AuthLoginForm: React.FC = () => {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="last_name">
+      <Form.Group className="mb-3" controlId="email">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
