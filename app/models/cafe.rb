@@ -1,7 +1,7 @@
 class Cafe < ApplicationRecord
   before_create :slugify
 
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   validates_uniqueness_of :slug
   self.table_name = "cafes"

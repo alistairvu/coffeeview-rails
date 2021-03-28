@@ -37,6 +37,6 @@ module CoffeeviewRails
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: "_rails_auth_app"
+    config.middleware.use ActionDispatch::Session::CookieStore, key: "_coffeeview_app"
   end
 end
