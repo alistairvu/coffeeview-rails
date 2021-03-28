@@ -36,10 +36,35 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    review = Review.find(params[:id])
+
+    if review && @current_user.id == review.user_id
+      review.destroy
+      render json: {
+        status: :success,
+        destroyed: true,
+      }
+    elsif @review && @current_user.id == review.user_id
+      render json: {
+        status: 401,
+        success: false,
+        message: "You cannot delete this review",
+      }, status: 401
+    else
+      render json: {
+        status: 500,
+        destroyed: false,
+        message: "An error occurred",
+      }, status: 500
+    end
+  end
+
   private
 
   def review_json(review)
     user = User.find(review[:user_id])
+    cafe = Cafe.find(review[:cafe_id])
     {
       id: review[:id],
       title: review[:title],

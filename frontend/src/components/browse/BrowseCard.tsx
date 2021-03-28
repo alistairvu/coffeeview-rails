@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
+import Rating from "react-rating"
 import renderPrice from "../../utils/renderPrice"
 import { Link } from "react-router-dom"
 

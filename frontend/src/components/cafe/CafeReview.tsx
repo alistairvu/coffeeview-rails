@@ -1,16 +1,53 @@
 import Card from "react-bootstrap/Card"
+import Dropdown from "react-bootstrap/Dropdown"
 import Rating from "react-rating"
 import { memo } from "react"
+import useUser from "../../hooks/useUser"
+import axios from "axios"
+import { mutate } from "swr"
+import { useParams } from "react-router-dom"
 
 const CafeReview: React.FC<ReviewInterface> = (props) => {
+  const { userInfo, isLoggedIn } = useUser()
+  const { slug } = useParams<{ slug: string }>()
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Do you really want to delete?")
+    if (confirmDelete) {
+      try {
+        const { data } = await axios.delete(`/api/reviews/${props.id}`, {
+          withCredentials: true,
+        })
+        console.log(data)
+        if (data.destroyed) {
+          mutate(`/api/reviews/cafe/${slug}`)
+          mutate(`/api/cafes/${slug}`)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
+
   return (
     <Card className="mb-3">
       <Card.Body>
-        <Card.Text style={{ fontWeight: 600 }}>
-          {/* {props.rating}.0 <span style={{ fontWeight: 500 }}>/ 5.0</span> <br /> */}
-          <Rating readonly fractions={2} initialRating={props.rating} /> <br />
-          {props.title}
-        </Card.Text>
+        <div className="d-flex align-items-center justify-content-between">
+          <Card.Text style={{ fontWeight: 600 }}>
+            <Rating readonly fractions={2} initialRating={props.rating} />{" "}
+            <br />
+            {props.title}
+          </Card.Text>
+          {isLoggedIn && userInfo.id === props.user_id && (
+            <Dropdown className="align-self-center" alignRight>
+              <Dropdown.Toggle variant="default"></Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
+        </div>
         <Card.Text>{props.content}</Card.Text>
         <Card.Text>
           <small>

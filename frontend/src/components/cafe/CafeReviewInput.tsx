@@ -62,6 +62,7 @@ const CafeReviewInput: React.FC<CafeReviewInputProps> = ({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setTitle(e.target.value)
               }
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="content">
@@ -73,6 +74,7 @@ const CafeReviewInput: React.FC<CafeReviewInputProps> = ({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setContent(e.target.value)
               }
+              required
             />
           </Form.Group>
           <Form.Group
