@@ -1,0 +1,1 @@
+web: cd backend && bundle install && bundle exec rails s

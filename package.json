@@ -5,7 +5,10 @@
   "author": "Alistair Vu <alistairvu@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "heroku local -f Procfile.dev"
+    "dev": "heroku local -f Procfile.dev",
+    "build": "yarn --cwd frontend install && yarn --cwd frontend build",
+    "deploy": "cp -a frontend/build/. backend/public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
   },
   "dependencies": {
     "react-rating": "^2.0.5"
