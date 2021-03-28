@@ -29,7 +29,7 @@ const CafeInfo: React.FC<CafeInterface> = (props) => {
       <ListGroup.Item>
         <strong>Rating: </strong> <br />
         <span style={{ fontSize: 30, fontWeight: 600 }}>
-          {props.avg_rating}
+          {props.avg_rating.toFixed(2)}
         </span>{" "}
         / 5.0
       </ListGroup.Item>

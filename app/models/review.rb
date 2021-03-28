@@ -2,6 +2,7 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :cafe
   after_save :set_avg_score
+  after_destroy :set_avg_score
 
   validates_presence_of :title, :content, :rating
 

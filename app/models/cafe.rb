@@ -9,7 +9,7 @@ class Cafe < ApplicationRecord
   private
 
   def slugify
-    token = rand(36 ** 8).to_s(36)
+    token = SecureRandom.urlsafe_base64(8)
     self.slug ||= "#{self.name.parameterize}-#{token}"
   end
 end

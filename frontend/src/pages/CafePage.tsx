@@ -3,8 +3,14 @@ import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import { CafeInfo, CafeDescription, CafeReviewList } from "../components/cafe"
-
+import {
+  CafeInfo,
+  CafeDescription,
+  CafeReviewList,
+  CafeReviewBlocked,
+  CafeReviewInput,
+} from "../components/cafe"
+import useUser from "../hooks/useUser"
 import { useParams, useHistory } from "react-router-dom"
 import { FaArrowLeft } from "react-icons/fa"
 import useSWR from "swr"
@@ -13,6 +19,7 @@ import axios from "axios"
 const CafePage: React.FC = () => {
   const params = useParams<{ slug: string }>()
   const history = useHistory()
+  const { isLoggedIn } = useUser()
 
   const getCafe = async () => {
     try {
@@ -76,6 +83,11 @@ const CafePage: React.FC = () => {
         </Col>
         <Col lg={{ span: 8, order: 1 }}>
           <h2>Reviews</h2>
+          {isLoggedIn ? (
+            <CafeReviewInput cafeId={cafeData.id} cafeSlug={cafeData.slug} />
+          ) : (
+            <CafeReviewBlocked />
+          )}
           <CafeReviewList />
         </Col>
       </Row>

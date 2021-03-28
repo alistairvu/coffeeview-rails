@@ -2,17 +2,17 @@ import Navbar from "react-bootstrap/Navbar"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import NavDropdown from "react-bootstrap/NavDropdown"
-import { rootState } from "../../redux"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { LinkContainer } from "react-router-bootstrap"
 import axios from "axios"
 import { logoutUser } from "../../redux/user"
 import { useHistory, useLocation } from "react-router-dom"
 import { useState } from "react"
+import useUser from "../../hooks/useUser"
 
 const AppHeader: React.FC = () => {
   const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false)
-  const { isLoggedIn, userInfo } = useSelector((state: rootState) => state.user)
+  const { isLoggedIn, userInfo } = useUser()
   const dispatch = useDispatch()
   const history = useHistory()
   const location = useLocation()

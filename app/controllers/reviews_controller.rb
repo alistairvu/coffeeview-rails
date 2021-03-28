@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
     if cafe and cafe.is_shown
       render json: {
         status: :success,
-        reviews: cafe.reviews.map { |review| review_json(review) },
+        reviews: cafe.reviews.order("created_at DESC").map { |review| review_json(review) },
       }
     else
       render json: {
