@@ -17,7 +17,7 @@ const BrowseCard: React.FC<CafeInterface> = (props) => {
             </Link>
           </Card.Title>
           <Card.Text>
-            <strong>{props.avg_rating}</strong> / 5.0 |{" "}
+            <strong>{props.avg_rating.toFixed(2)}</strong> / 5.0 |{" "}
             <strong>{renderPrice(props.price)}</strong> <br />
             <strong>Address: </strong>
             {props.address}
