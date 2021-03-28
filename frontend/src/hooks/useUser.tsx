@@ -2,9 +2,11 @@ import { useSelector } from "react-redux"
 import { rootState } from "../redux"
 
 const useUser = () => {
-  const { isLoggedIn, userInfo } = useSelector((state: rootState) => state.user)
+  const { isLoggedIn, userInfo, isLoaded } = useSelector(
+    (state: rootState) => state.user
+  )
 
-  return { isLoggedIn, userInfo }
+  return { isLoggedIn, userInfo, isLoaded }
 }
 
 export default useUser

@@ -55,6 +55,9 @@ const AppHeader: React.FC = () => {
           title={`Hello, ${userInfo.first_name}`}
           id="user-selections"
         >
+          <LinkContainer to="/profile">
+            <NavDropdown.Item>Profile</NavDropdown.Item>
+          </LinkContainer>
           <NavDropdown.Divider />
           <NavDropdown.Item onClick={handleLogout} disabled={isLoggingOut}>
             {isLoggingOut ? "Logging out..." : "Log out"}

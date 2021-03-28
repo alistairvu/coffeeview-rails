@@ -2,33 +2,40 @@ import { AppHeader } from "./components/app"
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { loginUser, logoutUser } from "./redux/user"
-import { HomePage, LoginPage, SignUpPage, BrowsePage, CafePage } from "./pages"
+import { loginUser, logoutUser, setLoaded } from "./redux/user"
+import {
+  HomePage,
+  LoginPage,
+  SignUpPage,
+  BrowsePage,
+  CafePage,
+  ProfilePage,
+} from "./pages"
 import { Switch, Route } from "react-router-dom"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
 
-  const checkAuth = async () => {
-    try {
-      const { data } = await axios.get("/api/auth/logged_in", {
-        withCredentials: true,
-      })
-
-      if (data.logged_in) {
-        dispatch(loginUser(data.user))
-      } else {
-        dispatch(logoutUser())
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const { data } = await axios.get("/api/auth/logged_in", {
+          withCredentials: true,
+        })
+
+        if (data.logged_in) {
+          dispatch(loginUser(data.user))
+        } else {
+          dispatch(logoutUser())
+        }
+        dispatch(setLoaded())
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
     checkAuth()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [dispatch])
 
   return (
     <>
@@ -51,6 +58,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/cafe/:slug">
             <CafePage />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
           </Route>
         </Switch>
       </main>

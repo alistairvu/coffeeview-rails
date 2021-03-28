@@ -10,6 +10,7 @@ interface UserInfoInterface {
 
 const initialState = {
   isLoggedIn: false,
+  isLoaded: false,
   userInfo: {} as UserInfoInterface,
 }
 
@@ -32,8 +33,11 @@ const userSlice = createSlice({
     },
 
     logoutUser: () => initialState,
+    setLoaded: (state) => {
+      state.isLoaded = true
+    },
   },
 })
 
-export const { loginUser, logoutUser } = userSlice.actions
+export const { loginUser, logoutUser, setLoaded } = userSlice.actions
 export default userSlice.reducer
