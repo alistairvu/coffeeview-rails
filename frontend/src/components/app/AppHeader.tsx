@@ -70,8 +70,8 @@ const AppHeader: React.FC = () => {
   return (
     <Navbar expand="lg" variant="dark" bg="primary" collapseOnSelect>
       <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand style={{ fontWeight: 700 }}>coffeeview</Navbar.Brand>
+        <LinkContainer to="/" style={{ fontWeight: 700 }}>
+          <Navbar.Brand>coffeeview</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle />
         <Navbar.Collapse>{renderNavOptions()}</Navbar.Collapse>

@@ -21,6 +21,9 @@ const ProfileUpdateForm: React.FC = () => {
     last_name: "",
     email: "",
   })
+  const [password, setPassword] = useState<string>("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
+  const [passwordError, setPasswordError] = useState<string>("")
   const [isUpdating, setIsUpdating] = useState<boolean>(false)
   const [updateError, setUpdateError] = useState<string>("")
   const dispatch = useDispatch()
@@ -56,10 +59,27 @@ const ProfileUpdateForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
+      setPasswordError("")
       setIsUpdating(true)
+
+      if (password.length > 0 && password !== passwordConfirmation) {
+        setPasswordError("Passwords do not match")
+        setIsUpdating(false)
+        return
+      }
+
+      const updateData =
+        password.length > 0 && password === passwordConfirmation
+          ? {
+              ...updateInfo,
+              password: password,
+              password_confirmation: passwordConfirmation,
+            }
+          : updateInfo
+      console.log(updateData)
       const { data } = await axios.put(
         `/api/users/${userInfo.id}`,
-        { user: updateInfo },
+        { user: updateData },
         { withCredentials: true }
       )
       if (data.updated) {
@@ -108,6 +128,33 @@ const ProfileUpdateForm: React.FC = () => {
         />
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="password">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          name="password"
+          placeholder="Enter password..."
+          value={password}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="password_confirmation">
+        <Form.Label>Confirm Password</Form.Label>
+        <Form.Control
+          type="password"
+          name="password_confirmation"
+          placeholder="Confirm password..."
+          value={passwordConfirmation}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPasswordConfirmation(e.target.value)
+          }
+        />
+      </Form.Group>
+
+      {passwordError && <Alert variant="danger">{passwordError}</Alert>}
       {updateError && <Alert variant="danger">{updateError}</Alert>}
 
       <Button variant="primary" type="submit" disabled={isUpdating}>
