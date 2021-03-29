@@ -16,7 +16,6 @@ import { FaArrowLeft } from "react-icons/fa"
 import useSWR from "swr"
 import axios from "axios"
 import Helmet from "react-helmet"
-import AspectRatio from "react-aspect-ratio"
 
 const CafePage: React.FC = () => {
   const params = useParams<{ slug: string }>()
