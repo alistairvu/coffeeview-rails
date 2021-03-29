@@ -13,6 +13,7 @@ module Auth
       else
         render json: {
                  status: 500,
+                 logged_in: false,
                }
       end
     end

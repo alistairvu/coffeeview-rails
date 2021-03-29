@@ -55,12 +55,13 @@ class CafesController < ApplicationController
     if cafe.update(cafe_params)
       render json: {
         status: :success,
-        updated: true,
+        success: true,
         cafe: cafe,
       }
     else
       render json: {
         status: :not_found,
+        success: false,
         message: "No matching cafe found",
       }, stauts: :not_found
     end
@@ -72,11 +73,12 @@ class CafesController < ApplicationController
     if cafe.destroy
       render json: {
         status: :success,
-        destroyed: true,
+        success: true,
       }
     else
       render json: {
         status: :not_found,
+        success: false,
         message: "No matching cafe found",
       }, stauts: :not_found
     end

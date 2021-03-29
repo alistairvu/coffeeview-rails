@@ -16,12 +16,13 @@ class UsersController < ApplicationController
     if user.update(user_params)
       render json: {
                status: :success,
-               updated: true,
+               success: true,
                user: user,
              }
     else
       render json: {
                status: 500,
+               success: false,
              }
     end
   end
@@ -33,11 +34,12 @@ class UsersController < ApplicationController
       reset_session
       render json: {
                status: :success,
-               destroyed: true,
+               success: true,
              }
     else
       render json: {
                status: 500,
+               success: false,
              }
     end
   end

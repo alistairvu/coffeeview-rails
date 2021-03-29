@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
       review.destroy
       render json: {
         status: :success,
-        destroyed: true,
+        success: true,
       }
     elsif @review && @current_user.id == review.user_id
       render json: {
@@ -54,7 +54,7 @@ class ReviewsController < ApplicationController
     else
       render json: {
         status: 500,
-        destroyed: false,
+        success: false,
         message: "An error occurred",
       }, status: 500
     end
@@ -73,6 +73,7 @@ class ReviewsController < ApplicationController
       user_name: "#{user[:first_name]} #{user[:last_name]}",
       user_id: review[:user_id],
       cafe_id: review[:cafe_id],
+      cafe_slug: review[:cafe_slug],
     }
   end
 

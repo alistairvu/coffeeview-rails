@@ -15,6 +15,7 @@ module Auth
       else
         render json: {
                  message: "Incorrect email or password",
+                 logged_in: false,
                }, status: 401
       end
     end
