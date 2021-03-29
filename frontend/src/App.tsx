@@ -1,18 +1,17 @@
 import { AppHeader, AppFooter } from "./components/app"
 import axios from "axios"
 import { useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, lazy, Suspense } from "react"
 import { loginUser, logoutUser, setLoaded } from "./redux/user"
-import {
-  HomePage,
-  LoginPage,
-  SignUpPage,
-  BrowsePage,
-  CafePage,
-  ProfilePage,
-  SearchPage,
-} from "./pages"
 import { Switch, Route } from "react-router-dom"
+
+const HomePage = lazy(() => import("./pages/HomePage"))
+const LoginPage = lazy(() => import("./pages/LoginPage"))
+const SignUpPage = lazy(() => import("./pages/SignUpPage"))
+const BrowsePage = lazy(() => import("./pages/BrowsePage"))
+const CafePage = lazy(() => import("./pages/CafePage"))
+const ProfilePage = lazy(() => import("./pages/ProfilePage"))
+const SearchPage = lazy(() => import("./pages/SearchPage"))
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -43,28 +42,44 @@ const App: React.FC = () => {
       <header>
         <AppHeader />
       </header>
-      <main style={{ minHeight: "calc('100vh' - 70)", marginTop: 70 }}>
+      <main style={{ marginTop: 70 }}>
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <Suspense fallback={null}>
+              <HomePage />
+            </Suspense>
           </Route>
           <Route path="/login">
-            <LoginPage />
+            <Suspense fallback={null}>
+              <LoginPage />
+            </Suspense>
           </Route>
           <Route path="/register">
-            <SignUpPage />
+            <Suspense fallback={null}>
+              <SignUpPage />
+            </Suspense>
           </Route>
           <Route path="/browse">
-            <BrowsePage />
+            <Suspense fallback={null}>
+              <BrowsePage />
+            </Suspense>
           </Route>
           <Route path="/cafe/:slug">
-            <CafePage />
+            <Suspense
+              fallback={<div style={{ height: "calc('100vh' - 70px)" }} />}
+            >
+              <CafePage />
+            </Suspense>
           </Route>
           <Route path="/profile">
-            <ProfilePage />
+            <Suspense fallback={null}>
+              <ProfilePage />
+            </Suspense>
           </Route>
           <Route path="/search">
-            <SearchPage />
+            <Suspense fallback={null}>
+              <SearchPage />
+            </Suspense>
           </Route>
         </Switch>
       </main>

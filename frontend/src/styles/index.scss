@@ -9,3 +9,9 @@ h1 {
 h2 {
   font-weight: 600;
 }
+
+main {
+  .container {
+    min-height: calc(100vh - 70px);
+  }
+}
