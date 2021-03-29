@@ -43,7 +43,7 @@ const App: React.FC = () => {
       <header>
         <AppHeader />
       </header>
-      <main style={{ minHeight: "95vh" }}>
+      <main style={{ minHeight: "calc('100vh' - 70)", marginTop: 70 }}>
         <Switch>
           <Route exact path="/">
             <HomePage />

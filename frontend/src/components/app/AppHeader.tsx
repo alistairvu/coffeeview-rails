@@ -70,7 +70,13 @@ const AppHeader: React.FC = () => {
   }
 
   return (
-    <Navbar expand="lg" variant="dark" bg="primary" collapseOnSelect>
+    <Navbar
+      expand="lg"
+      variant="dark"
+      bg="primary"
+      collapseOnSelect
+      className="fixed-top"
+    >
       <Container>
         <LinkContainer to="/" style={{ fontWeight: 700 }}>
           <Navbar.Brand>coffeeview</Navbar.Brand>
