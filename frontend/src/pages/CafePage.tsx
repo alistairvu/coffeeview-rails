@@ -33,6 +33,8 @@ const CafePage: React.FC = () => {
 
   const { data: cafeData } = useSWR(`/api/cafes/${params.slug}`, getCafe)
 
+  console.log(history)
+
   if (!cafeData) {
     return (
       <Container className="mt-3">

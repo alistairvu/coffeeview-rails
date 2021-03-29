@@ -14,7 +14,7 @@ const AppSearchForm: React.FC = () => {
 
   return (
     <Form
-      className="d-flex justify-content-center align-items-center mt-3 mt-lg-0"
+      className="d-flex justify-content-center align-items-center my-3 my-lg-0"
       onSubmit={handleSubmit}
     >
       <Form.Control
