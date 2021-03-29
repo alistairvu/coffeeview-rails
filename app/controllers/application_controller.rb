@@ -10,4 +10,10 @@ class ApplicationController < ActionController::API
   def render_not_found_response(exception)
     render json: { message: exception.message }, status: :not_found
   end
+
+  def index
+    respond_to do |format|
+      format.html { render body: Rails.root.join("public/index.html").read }
+    end
+  end
 end

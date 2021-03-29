@@ -38,7 +38,7 @@ const CafeReview: React.FC<ReviewInterface> = (props) => {
             <br />
             {props.title}
           </Card.Text>
-          {isLoggedIn && userInfo.id === props.user_id && (
+          {isLoggedIn && (userInfo.id === props.user_id || userInfo.is_admin) && (
             <Dropdown className="align-self-center" alignRight>
               <Dropdown.Toggle variant="default"></Dropdown.Toggle>
 
