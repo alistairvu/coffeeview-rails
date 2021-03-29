@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     get "/reviews/cafe/:id", to: "reviews#cafe"
     resources :reviews, only: [:create, :destroy]
   end
+
+  match "*all", to: "application#index", via: [:get]
 end
