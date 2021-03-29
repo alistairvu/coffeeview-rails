@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
 
     resources :users, only: [:show, :update, :destroy]
+    get "/cafes/search", to: "cafes#search"
     resources :cafes, only: [:create, :show, :update, :destroy, :index, :reviews]
     get "/reviews/cafe/:id", to: "reviews#cafe"
     resources :reviews, only: [:create, :destroy]

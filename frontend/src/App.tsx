@@ -1,4 +1,4 @@
-import { AppHeader } from "./components/app"
+import { AppHeader, AppFooter } from "./components/app"
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
@@ -10,6 +10,7 @@ import {
   BrowsePage,
   CafePage,
   ProfilePage,
+  SearchPage,
 } from "./pages"
 import { Switch, Route } from "react-router-dom"
 
@@ -42,7 +43,7 @@ const App: React.FC = () => {
       <header>
         <AppHeader />
       </header>
-      <main>
+      <main style={{ minHeight: "95vh" }}>
         <Switch>
           <Route exact path="/">
             <HomePage />
@@ -62,8 +63,15 @@ const App: React.FC = () => {
           <Route path="/profile">
             <ProfilePage />
           </Route>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
         </Switch>
       </main>
+
+      <footer>
+        <AppFooter />
+      </footer>
     </>
   )
 }

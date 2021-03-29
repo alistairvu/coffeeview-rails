@@ -31,6 +31,11 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.7.tgz#2a5fb75e1015e84dd15692f71e89a1450290950b"
   integrity sha512-KxnUB0ZMlnUWCsx2Z8MUsr6qV6ja1w9ArPErJaJaF8a5SOWoHLIszeCTKGRGRgtLgYrs1E8CHkNSP1VZTTPc9g==
 
+react-aspect-ratio@^1.0.49:
+  version "1.0.49"
+  resolved "https://registry.yarnpkg.com/react-aspect-ratio/-/react-aspect-ratio-1.0.49.tgz#346863ebb7eec542b8a5a4d6548440bf95a88608"
+  integrity sha512-zSKVJdy7QjmFeWTNNoL+gLf4KugIVln6XdKNIxjY8yebJ0buCeKcKoEQPfxruSbPGFakFGVl/abtF9SDpauh/A==
+
 react-rating@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-2.0.5.tgz#2c9d7ebe5907db0361ba28b7c19f0394e6e4dd76"

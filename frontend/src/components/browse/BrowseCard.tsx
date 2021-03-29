@@ -2,13 +2,16 @@ import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import renderPrice from "../../utils/renderPrice"
 import { Link } from "react-router-dom"
+import AspectRatio from "react-aspect-ratio"
 
 const BrowseCard: React.FC<CafeInterface> = (props) => {
   return (
     <Col lg={3} md={4} sm={6}>
       <Card>
         <Link to={`/cafe/${props.slug}`}>
-          <Card.Img variant="top" src={props.images[0]} />
+          <AspectRatio ratio="16/9">
+            <Card.Img variant="top" src={props.images[0]} />
+          </AspectRatio>
         </Link>
         <Card.Body>
           <Card.Title style={{ fontWeight: 700 }}>

@@ -25,10 +25,10 @@ const Browse: React.FC = () => {
     }
   }
 
-  const { data: swrData, error } = useSWR("/api/cafes", getCafeData)
+  const { data: browseData, error } = useSWR("/api/cafes", getCafeData)
 
   const renderCafes = () => {
-    if (!swrData) {
+    if (!browseData) {
       return (
         <div className="mt-3 d-flex justify-content-center align-items-center">
           <Spinner animation="border" />
@@ -42,7 +42,7 @@ const Browse: React.FC = () => {
 
     return (
       <Row>
-        {swrData.map((cafe: CafeInterface) => (
+        {browseData.map((cafe: CafeInterface) => (
           <BrowseCard key={cafe.id} {...cafe} />
         ))}
       </Row>

@@ -9,7 +9,7 @@ const CafeReviewBlocked: React.FC = () => {
         <Card.Title style={{ fontWeight: 600 }}>
           You are not logged in!
         </Card.Title>
-        <Card.Text>Please log in to continue</Card.Text>
+        <Card.Text>Please log in to create a review</Card.Text>
         <LinkContainer to="/login">
           <Button variant="primary">Log In</Button>
         </LinkContainer>

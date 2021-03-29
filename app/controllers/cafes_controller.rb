@@ -84,6 +84,16 @@ class CafesController < ApplicationController
     end
   end
 
+  def search
+    parameter = params[:q].downcase
+    results = Cafe.all.where("lower(name) LIKE :search", search: "%#{parameter}%")
+    puts results
+    render json: {
+      status: 200,
+      results: results,
+    }
+  end
+
   private
 
   def cafe_params
