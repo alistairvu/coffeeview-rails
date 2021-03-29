@@ -12,8 +12,8 @@ const AppFooter: React.FC = () => {
         </Col>
         <Col sm={6}>
           <h5>Explore</h5>
-          <ul className="list-unstyled text-small">
-            <li>
+          <ul className="list-unstyled">
+            <li className="text-small text-info">
               <Link to="/browse">Browse</Link>
             </li>
           </ul>

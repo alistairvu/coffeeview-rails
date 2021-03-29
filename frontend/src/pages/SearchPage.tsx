@@ -10,10 +10,13 @@ import { useLocation } from "react-router-dom"
 const SearchPage: React.FC = () => {
   const location = useLocation()
   const query = new URLSearchParams(location.search).get("q")
+  const pageNumber = new URLSearchParams(location.search).get("page")
 
   const fetchResults = async () => {
     try {
-      const { data } = await axios.get(`/api/cafes/search?q=${query}`)
+      const { data } = await axios.get(
+        `/api/cafes/search?q=${query}&page=${pageNumber}`
+      )
       if (data.status === 200) {
         return data.results
       }

@@ -85,12 +85,16 @@ class CafesController < ApplicationController
   end
 
   def search
+    page_number = params[:page].to_i > 1 ? params[:page].to_i : 1
+    offset = (page_number - 1) * 12
     parameter = params[:q].downcase
-    results = Cafe.all.where("lower(name) LIKE :search", search: "%#{parameter}%")
-    puts results
+    results = Cafe.all.where("lower(name) LIKE :search", search: "%#{parameter}%").limit(12).offset(offset)
+    page_count = (Cafe.all.where("lower(name) LIKE :search", search: "%#{parameter}%").size.to_f / 12).ceil
     render json: {
       status: 200,
-      results: results,
+      offset: offset,
+      results: results.limit(12).offset(offset),
+      page_count: page_count,
     }
   end
 

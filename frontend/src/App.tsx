@@ -69,7 +69,7 @@ const App: React.FC = () => {
         </Switch>
       </main>
 
-      <footer>
+      <footer className="bg-light py-3">
         <AppFooter />
       </footer>
     </>
