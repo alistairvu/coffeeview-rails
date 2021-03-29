@@ -13,5 +13,5 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create, :destroy]
   end
 
-  match "*all", to: "application#index", via: [:get]
+  match "*all", to: "static_pages#index", via: [:get]
 end
