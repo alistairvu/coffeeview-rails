@@ -6,6 +6,7 @@ import { AuthSignUpForm } from "../components/auth"
 import useUser from "../hooks/useUser"
 import { useEffect } from "react"
 import { useHistory, Link } from "react-router-dom"
+import Helmet from "react-helmet"
 
 const SignUpPage: React.FC = () => {
   const history = useHistory()
@@ -18,22 +19,28 @@ const SignUpPage: React.FC = () => {
   }, [isLoggedIn, history])
 
   return (
-    <Container className="pt-3">
-      <h1>Sign Up</h1>
-      <Row>
-        <Col lg={6} className="offset-lg-3">
-          <Card>
-            <Card.Body>
-              <AuthSignUpForm />
-              <p className="pt-3">
-                Returning to coffeeview?{" "}
-                <Link to="/login">Click here to log in.</Link>{" "}
-              </p>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <Helmet>
+        <title>Sign Up | coffeeview</title>
+      </Helmet>
+
+      <Container className="pt-3">
+        <h1>Sign Up</h1>
+        <Row>
+          <Col lg={6} className="offset-lg-3">
+            <Card>
+              <Card.Body>
+                <AuthSignUpForm />
+                <p className="pt-3">
+                  Returning to coffeeview?{" "}
+                  <Link to="/login">Click here to log in.</Link>{" "}
+                </p>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }
 

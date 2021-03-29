@@ -15,6 +15,7 @@ import { useParams, useHistory } from "react-router-dom"
 import { FaArrowLeft } from "react-icons/fa"
 import useSWR from "swr"
 import axios from "axios"
+import Helmet from "react-helmet"
 
 const CafePage: React.FC = () => {
   const params = useParams<{ slug: string }>()
@@ -50,48 +51,54 @@ const CafePage: React.FC = () => {
   }
 
   return (
-    <Container className="mt-3">
-      <Button
-        className="mb-3"
-        variant="primary"
-        onClick={() => history.goBack()}
-      >
-        <FaArrowLeft /> Return
-      </Button>
-      <h1>{cafeData.name}</h1>
+    <>
+      <Helmet>
+        <title>{cafeData.name} | coffeeview</title>
+      </Helmet>
 
-      <Row className="mb-3">
-        <Col lg={{ span: 8, order: 1 }}>
-          <div className="text-center">
-            <img
-              src={cafeData.images[0]}
-              alt={cafeData.name}
-              style={{ maxHeight: 350, maxWidth: "100%" }}
-              className="mb-3"
-            />
-          </div>
-        </Col>
-        <Col lg={{ span: 4, order: 2 }}>
-          <CafeInfo {...cafeData} />
-        </Col>
-      </Row>
+      <Container className="mt-3">
+        <Button
+          className="mb-3"
+          variant="primary"
+          onClick={() => history.goBack()}
+        >
+          <FaArrowLeft /> Return
+        </Button>
+        <h1>{cafeData.name}</h1>
 
-      <Row className="mb-3">
-        <Col lg={{ span: 4, order: 2 }}>
-          <h2>About {cafeData.name}</h2>
-          <CafeDescription description={cafeData.description} />
-        </Col>
-        <Col lg={{ span: 8, order: 1 }}>
-          <h2>Reviews</h2>
-          {isLoggedIn ? (
-            <CafeReviewInput cafeId={cafeData.id} cafeSlug={cafeData.slug} />
-          ) : (
-            <CafeReviewBlocked />
-          )}
-          <CafeReviewList />
-        </Col>
-      </Row>
-    </Container>
+        <Row className="mb-3">
+          <Col lg={{ span: 8, order: 1 }}>
+            <div className="text-center">
+              <img
+                src={cafeData.images[0]}
+                alt={cafeData.name}
+                style={{ maxHeight: 350, maxWidth: "100%" }}
+                className="mb-3"
+              />
+            </div>
+          </Col>
+          <Col lg={{ span: 4, order: 2 }}>
+            <CafeInfo {...cafeData} />
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          <Col lg={{ span: 4, order: 2 }}>
+            <h2>About {cafeData.name}</h2>
+            <CafeDescription description={cafeData.description} />
+          </Col>
+          <Col lg={{ span: 8, order: 1 }}>
+            <h2>Reviews</h2>
+            {isLoggedIn ? (
+              <CafeReviewInput cafeId={cafeData.id} cafeSlug={cafeData.slug} />
+            ) : (
+              <CafeReviewBlocked />
+            )}
+            <CafeReviewList />
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }
 

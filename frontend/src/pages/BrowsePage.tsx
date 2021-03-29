@@ -7,6 +7,7 @@ import { BrowseCard } from "../components/browse"
 import useSWR from "swr"
 import { useLocation } from "react-router-dom"
 import { useRef } from "react"
+import Helmet from "react-helmet"
 
 const Browse: React.FC = () => {
   const location = useLocation()
@@ -49,10 +50,16 @@ const Browse: React.FC = () => {
   }
 
   return (
-    <Container className="pt-3">
-      <h1>Browse</h1>
-      {renderCafes()}
-    </Container>
+    <>
+      <Helmet>
+        <title>Browse | coffeeview</title>
+      </Helmet>
+
+      <Container className="pt-3">
+        <h1>Browse</h1>
+        {renderCafes()}
+      </Container>
+    </>
   )
 }
 
