@@ -13,6 +13,12 @@ const CafePage = lazy(() => import("./pages/CafePage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const SearchPage = lazy(() => import("./pages/SearchPage"))
 
+const SuspenseComponent: React.FC = ({ children }) => (
+  <Suspense fallback={<div className="loading-component" />}>
+    {children}
+  </Suspense>
+)
+
 const App: React.FC = () => {
   const dispatch = useDispatch()
 
@@ -45,39 +51,39 @@ const App: React.FC = () => {
       <main style={{ marginTop: 70 }}>
         <Switch>
           <Route exact path="/">
-            <Suspense fallback={null}>
+            <SuspenseComponent>
               <HomePage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
           <Route path="/login">
-            <Suspense fallback={null}>
+            <SuspenseComponent>
               <LoginPage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
           <Route path="/register">
-            <Suspense fallback={null}>
+            <SuspenseComponent>
               <SignUpPage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
           <Route path="/browse">
-            <Suspense fallback={null}>
+            <SuspenseComponent>
               <BrowsePage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
           <Route path="/cafe/:slug">
-            <Suspense fallback={<div className="loading-component" />}>
+            <SuspenseComponent>
               <CafePage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
           <Route path="/profile">
-            <Suspense fallback={null}>
+            <SuspenseComponent>
               <ProfilePage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
           <Route path="/search">
-            <Suspense fallback={null}>
+            <SuspenseComponent>
               <SearchPage />
-            </Suspense>
+            </SuspenseComponent>
           </Route>
         </Switch>
       </main>
