@@ -37,7 +37,7 @@ const AuthLoginForm: React.FC = () => {
     try {
       setIsSigningUp(true)
       const { data } = await axios.post(
-        "/api/auth/registrations",
+        "/api/auth/signup",
         { user: signUpInfo },
         { withCredentials: true }
       )

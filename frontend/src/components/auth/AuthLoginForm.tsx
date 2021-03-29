@@ -31,7 +31,7 @@ const AuthLoginForm: React.FC = () => {
     try {
       setIsLoggingIn(true)
       const { data } = await axios.post(
-        "/api/auth/sessions",
+        "/api/auth/login",
         { user: loginInfo },
         { withCredentials: true }
       )
