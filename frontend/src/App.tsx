@@ -65,9 +65,7 @@ const App: React.FC = () => {
             </Suspense>
           </Route>
           <Route path="/cafe/:slug">
-            <Suspense
-              fallback={<div style={{ height: "calc('100vh' - 70px)" }} />}
-            >
+            <Suspense fallback={<div className="loading-component" />}>
               <CafePage />
             </Suspense>
           </Route>

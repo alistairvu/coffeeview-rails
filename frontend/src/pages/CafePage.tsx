@@ -16,6 +16,7 @@ import { FaArrowLeft } from "react-icons/fa"
 import useSWR from "swr"
 import axios from "axios"
 import Helmet from "react-helmet"
+import AspectRatio from "react-aspect-ratio"
 
 const CafePage: React.FC = () => {
   const params = useParams<{ slug: string }>()
@@ -75,7 +76,6 @@ const CafePage: React.FC = () => {
                 src={cafeData.images[0]}
                 alt={cafeData.name}
                 style={{ maxHeight: 350, maxWidth: "100%" }}
-                className="mb-3"
               />
             </div>
           </Col>
