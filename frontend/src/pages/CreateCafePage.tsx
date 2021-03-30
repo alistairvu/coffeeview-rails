@@ -12,7 +12,7 @@ const CreateCafePage: React.FC = () => {
         <title>Add Your Cafe | coffeeview</title>
       </Helmet>
 
-      <Container className="mt-3">
+      <Container className="my-3">
         <h1>Add Your Cafe</h1>
 
         <Row>

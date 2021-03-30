@@ -12,6 +12,7 @@ interface CreateCafeModalInterface {
     district: string
     tags: string[]
     price: string
+    images: string[]
   }
 }
 
@@ -38,6 +39,14 @@ const CreateCafeModal: React.FC<CreateCafeModalInterface> = ({
         </p>
         <p>
           <strong>Description: </strong> {cafeInfo.description}
+        </p>
+        <p>
+          <strong>Image: </strong> <br />
+          <img
+            src={cafeInfo.images[0]}
+            alt={cafeInfo.name}
+            style={{ height: 150 }}
+          />
         </p>
         <p>
           <strong>Tags: </strong> {cafeInfo.tags.join(", ")}

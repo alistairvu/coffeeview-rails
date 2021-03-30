@@ -3,6 +3,7 @@ import CreateTagsComponent from "./CreateTagsComponent"
 import CreateCafeModal from "./CreateCafeModal"
 import { useState } from "react"
 import Button from "react-bootstrap/Button"
+import axios from "axios"
 
 interface CafeInfoInterface {
   name: string
@@ -12,6 +13,7 @@ interface CafeInfoInterface {
   district: string
   tags: string[]
   price: string
+  images: string[]
 }
 
 const CreateCafeForm: React.FC = () => {
@@ -38,11 +40,43 @@ const CreateCafeForm: React.FC = () => {
     district: "",
     tags: [],
     price: "",
+    images: [],
   })
   const [isModalShown, setIsModalShown] = useState<boolean>(false)
+  const [isUploading, setIsUploading] = useState<boolean>(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCafeInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (e.target.files) {
+        setIsUploading(true)
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append("image", file)
+
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+
+        const { data } = await axios.post("/api/images", formData, config)
+        if (data.success === 1) {
+          console.log(data)
+          setCafeInfo((prev) => ({
+            ...prev,
+            images: [...prev.images, data.image_url],
+          }))
+        }
+      }
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsUploading(false)
+    }
   }
 
   const addToTags = (tag: string) => {
@@ -61,8 +95,12 @@ const CreateCafeForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(cafeInfo)
-    setIsModalShown(true)
+    if (cafeInfo.tags.length > 0 && cafeInfo.images.length > 0) {
+      console.log(cafeInfo)
+      setIsModalShown(true)
+    } else {
+      window.alert("Missing fields!")
+    }
   }
 
   return (
@@ -118,6 +156,25 @@ const CreateCafeForm: React.FC = () => {
           onChange={handleChange}
           required
         />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="image">
+        <Form.Label>Image:</Form.Label>
+        <Form.Control
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleUpload}
+          required
+        />
+        {cafeInfo.images.length > 0 && (
+          <img
+            src={cafeInfo.images[0]}
+            style={{ height: 150 }}
+            alt="Your cafe"
+            className="mt-3"
+          />
+        )}
+        {isUploading && <Form.Text>Uploading...</Form.Text>}
       </Form.Group>
       <CreateTagsComponent
         tags={cafeInfo.tags}
