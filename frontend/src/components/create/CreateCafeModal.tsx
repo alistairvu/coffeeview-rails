@@ -21,6 +21,8 @@ const CreateCafeModal: React.FC<CreateCafeModalInterface> = ({
   hideHandler,
   cafeInfo,
 }) => {
+  console.log(cafeInfo)
+
   return (
     <Modal show={show} onHide={hideHandler}>
       <Modal.Header closeButton>

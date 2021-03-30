@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 2021_03_30_121531) do
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "images", default: [], array: true
-    t.string "tags", default: [], array: true
+    t.string "images", array: true
+    t.string "tags", array: true
     t.boolean "is_shown", default: false
     t.float "avg_rating", default: 0.0
     t.index ["slug"], name: "index_cafes_on_slug", unique: true

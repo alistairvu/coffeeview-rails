@@ -17,6 +17,8 @@ class CafesController < ApplicationController
 
   def create
     cafe = Cafe.create!(cafe_params)
+    puts cafe_params
+    cafe.update(tags: cafe_params[:tags], images: cafe_params[:images])
 
     if cafe
       render json: {
@@ -101,7 +103,7 @@ class CafesController < ApplicationController
   private
 
   def cafe_params
-    params.require(:cafe).perimt(:name, :address, :district, :description, :price, :hours, :images, :tags)
+    params.require(:cafe).permit(:name, :address, :district, :description, :price, :hours, :images => [], :tags => [])
   end
 
   def check_admin

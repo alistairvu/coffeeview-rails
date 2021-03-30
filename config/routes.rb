@@ -15,7 +15,5 @@ Rails.application.routes.draw do
     post "images", to: "images#create"
   end
 
-  if Rails.env.production?
-    match "*all", to: "static_pages#index", via: [:get]
-  end
+  match "*all", to: "static_pages#index", via: [:get], constraints: lambda { |req| req.path !~ /\.(png|jpg|js|css)$/ }
 end
