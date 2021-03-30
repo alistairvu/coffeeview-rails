@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const AppFooter: React.FC = () => {
   return (
-    <Container>
+    <Container className="pb-3">
       <Row>
         <Col sm={6}>
           <h5>About coffeeview</h5>
@@ -15,6 +15,9 @@ const AppFooter: React.FC = () => {
           <ul className="list-unstyled">
             <li className="text-small text-info">
               <Link to="/browse">Browse</Link>
+            </li>
+            <li className="text-small text-info">
+              <Link to="/create-cafe">Add Your Cafe</Link>
             </li>
           </ul>
         </Col>

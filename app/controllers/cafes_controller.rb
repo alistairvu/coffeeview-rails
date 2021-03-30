@@ -101,7 +101,7 @@ class CafesController < ApplicationController
   private
 
   def cafe_params
-    params.require(:cafe).perimt(:name, :address, :district, :description, :price, :hours, :images)
+    params.require(:cafe).perimt(:name, :address, :district, :description, :price, :hours, :images, :tags)
   end
 
   def check_admin

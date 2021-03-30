@@ -12,6 +12,7 @@ const BrowsePage = lazy(() => import("./pages/BrowsePage"))
 const CafePage = lazy(() => import("./pages/CafePage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const SearchPage = lazy(() => import("./pages/SearchPage"))
+const CreateCafePage = lazy(() => import("./pages/CreateCafePage"))
 
 const SuspenseComponent: React.FC = ({ children }) => (
   <Suspense fallback={<div className="loading-component" />}>
@@ -83,6 +84,11 @@ const App: React.FC = () => {
           <Route path="/search">
             <SuspenseComponent>
               <SearchPage />
+            </SuspenseComponent>
+          </Route>
+          <Route path="/create-cafe">
+            <SuspenseComponent>
+              <CreateCafePage />
             </SuspenseComponent>
           </Route>
         </Switch>
