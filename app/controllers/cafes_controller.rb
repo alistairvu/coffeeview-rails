@@ -1,6 +1,7 @@
 class CafesController < ApplicationController
   include CurrentUserConcern
   before_action :check_admin, only: [:update, :delete]
+  before_action :check_user, only: [:create]
 
   def index
     page_number = params[:page].to_i > 1 ? params[:page].to_i : 1
@@ -17,8 +18,7 @@ class CafesController < ApplicationController
 
   def create
     cafe = Cafe.create!(cafe_params)
-    puts cafe_params
-    cafe.update(tags: cafe_params[:tags], images: cafe_params[:images])
+    cafe[:user_id] = @current_user.id
 
     if cafe
       render json: {
@@ -108,6 +108,14 @@ class CafesController < ApplicationController
 
   def check_admin
     unless @current_user && @current_user.is_admin
+      render json: {
+        message: "You cannot do this action",
+      }, status: 401
+    end
+  end
+
+  def check_user
+    unless @current_user
       render json: {
         message: "You cannot do this action",
       }, status: 401
