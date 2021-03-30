@@ -1,4 +1,5 @@
 import Modal from "react-bootstrap/Modal"
+import Button from "react-bootstrap/Button"
 import renderPrice from "../../utils/renderPrice"
 
 interface CreateCafeModalInterface {
@@ -44,11 +45,15 @@ const CreateCafeModal: React.FC<CreateCafeModalInterface> = ({
         </p>
         <p>
           <strong>Image: </strong> <br />
-          <img
-            src={cafeInfo.images[0]}
-            alt={cafeInfo.name}
-            style={{ height: 150 }}
-          />
+          {cafeInfo.images.length > 0 ? (
+            <img
+              src={cafeInfo.images[0]}
+              alt={cafeInfo.name}
+              style={{ height: 150 }}
+            />
+          ) : (
+            <p>No images found</p>
+          )}
         </p>
         <p>
           <strong>Tags: </strong> {cafeInfo.tags.join(", ")}
@@ -60,6 +65,11 @@ const CreateCafeModal: React.FC<CreateCafeModalInterface> = ({
           <strong>Price: </strong> {renderPrice(cafeInfo.price)}
         </p>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={hideHandler}>
+          Close Preview
+        </Button>
+      </Modal.Footer>
     </Modal>
   )
 }

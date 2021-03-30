@@ -1,7 +1,8 @@
 import Form from "react-bootstrap/Form"
+import Alert from "react-bootstrap/Alert"
 import CreateTagsComponent from "./CreateTagsComponent"
 import CreateCafeModal from "./CreateCafeModal"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Button from "react-bootstrap/Button"
 import axios from "axios"
 
@@ -44,6 +45,11 @@ const CreateCafeForm: React.FC = () => {
   })
   const [isModalShown, setIsModalShown] = useState<boolean>(false)
   const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    status: string
+    message: string
+  }>({ status: "", message: "" })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCafeInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -93,18 +99,52 @@ const CreateCafeForm: React.FC = () => {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (cafeInfo.tags.length > 0 && cafeInfo.images.length > 0) {
-      console.log(cafeInfo)
-      setIsModalShown(true)
-    } else {
-      window.alert("Missing fields!")
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault()
+      setSubmitStatus({ status: "", message: "" })
+      setIsSubmitting(true)
+      if (cafeInfo.tags.length > 0 && cafeInfo.images.length > 0) {
+        const { data } = await axios.post("/api/cafes", cafeInfo)
+        if (data.success) {
+          setSubmitStatus({
+            status: "success",
+            message:
+              "Cafe data submitted. Please wait for our admin to approve your cafe.",
+          })
+          setCafeInfo({
+            name: "",
+            address: "",
+            description: "",
+            hours: "",
+            district: "",
+            tags: [],
+            price: "",
+            images: [],
+          })
+        }
+      } else {
+        setSubmitStatus({ status: "danger", message: "Missing fields!" })
+      }
+    } catch {
+      setSubmitStatus({
+        status: "danger",
+        message: "An error occurred – please try again later.",
+      })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
+  useEffect(() => {
+    setSubmitStatus({ status: "", message: "" })
+  }, [])
+
   return (
     <Form onSubmit={handleSubmit}>
+      {submitStatus.status && (
+        <Alert variant={submitStatus.status}>{submitStatus.message}</Alert>
+      )}
       <Form.Group className="mb-3" controlId="name">
         <Form.Label>Name:</Form.Label>
         <Form.Control
@@ -243,8 +283,16 @@ const CreateCafeForm: React.FC = () => {
         show={isModalShown}
         hideHandler={() => setIsModalShown(false)}
       />
-      <Button type="submit" variant="primary">
-        Add your cafe
+      <Button
+        type="submit"
+        variant="primary"
+        className="me-3"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Adding your cafe..." : "Add your cafe"}
+      </Button>
+      <Button onClick={() => setIsModalShown(true)} variant="secondary">
+        Preview your cafe
       </Button>
     </Form>
   )

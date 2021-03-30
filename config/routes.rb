@@ -15,5 +15,5 @@ Rails.application.routes.draw do
     post "images", to: "images#create"
   end
 
-  match "*all", to: "static_pages#index", via: [:get], constraints: lambda { |req| req.path !~ /\.(png|jpg|js|css)$/ }
+  match "*all", to: "home#index", via: [:get], constraints: lambda { |req| req.path !~ /\.(png|jpg|jpeg|js|css)$/ }
 end
