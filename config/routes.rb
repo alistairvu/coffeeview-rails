@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     resources :cafes, only: [:create, :show, :update, :destroy, :index, :reviews]
     get "/reviews/cafe/:id", to: "reviews#cafe"
     resources :reviews, only: [:create, :destroy]
+    post "images", to: "images#create"
   end
 
-  match "*all", to: "static_pages#index", via: [:get]
+  if Rails.env.production?
+    match "*all", to: "static_pages#index", via: [:get]
+  end
 end
