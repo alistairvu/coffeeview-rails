@@ -7,9 +7,9 @@ class CafesController < ApplicationController
     page_number = params[:page].to_i > 1 ? params[:page].to_i : 1
     offset = (page_number - 1) * 12
     cafes = Cafe.where(is_shown: true).limit(12).offset(offset)
-    page_count = (Cafe.count.to_f / 12).ceil
+    page_count = (Cafe.where(is_shown: true).count.to_f / 12).ceil
     render json: {
-      status: 200,
+      success: 1,
       offset: offset,
       cafes: cafes,
       page_count: page_count,
@@ -22,14 +22,12 @@ class CafesController < ApplicationController
 
     if cafe
       render json: {
-        status: :created,
-        success: true,
+        success: 1,
         cafe: cafe,
-      }
+      }, status: :created
     else
       render json: {
-        status: 500,
-        success: false,
+        success: 0,
         message: "An error occurred",
       }, status: 500
     end
@@ -40,14 +38,14 @@ class CafesController < ApplicationController
 
     if cafe and cafe.is_shown
       render json: {
-        status: :success,
+        success: 1,
         cafe: cafe,
-      }
+      }, status: :success
     else
       render json: {
-        status: :not_found,
+        success: 0,
         message: "No matching cafe found",
-      }, stauts: :not_found
+      }, status: :not_found
     end
   end
 
@@ -56,14 +54,12 @@ class CafesController < ApplicationController
 
     if cafe.update(cafe_params)
       render json: {
-        status: :success,
-        success: true,
+        success: 1,
         cafe: cafe,
-      }
+      }, status: :success
     else
       render json: {
-        status: :not_found,
-        success: false,
+        success: 0,
         message: "No matching cafe found",
       }, stauts: :not_found
     end
@@ -74,13 +70,13 @@ class CafesController < ApplicationController
 
     if cafe.destroy
       render json: {
-        status: :success,
-        success: true,
-      }
+
+        success: 1,
+      }, status: :success
     else
       render json: {
-        status: :not_found,
-        success: false,
+
+        success: 0,
         message: "No matching cafe found",
       }, stauts: :not_found
     end
@@ -93,11 +89,11 @@ class CafesController < ApplicationController
     results = Cafe.all.where("lower(name) LIKE :search", search: "%#{parameter}%").limit(12).offset(offset)
     page_count = (Cafe.all.where("lower(name) LIKE :search", search: "%#{parameter}%").size.to_f / 12).ceil
     render json: {
-      status: 200,
+      success: 1,
       offset: offset,
       results: results.limit(12).offset(offset),
       page_count: page_count,
-    }
+    }, status: 200
   end
 
   private
@@ -109,6 +105,7 @@ class CafesController < ApplicationController
   def check_admin
     unless @current_user && @current_user.is_admin
       render json: {
+        success: 0,
         message: "You cannot do this action",
       }, status: 401
     end
@@ -117,6 +114,7 @@ class CafesController < ApplicationController
   def check_user
     unless @current_user
       render json: {
+        success: 0,
         message: "You cannot do this action",
       }, status: 401
     end

@@ -22,7 +22,7 @@ const AppHeader: React.FC = () => {
     try {
       setIsLoggingOut(true)
       const { data } = await axios.delete("/api/auth/logout")
-      if (data.logged_out) {
+      if (data.success && data.logged_out) {
         dispatch(logoutUser())
         history.push("/login")
       }

@@ -62,7 +62,9 @@ const CafePage: React.FC = () => {
         <Button
           className="mb-3"
           variant="primary"
-          onClick={() => history.goBack()}
+          onClick={() =>
+            history.length > 2 ? history.goBack() : history.push("/")
+          }
         >
           <FaArrowLeft /> Return
         </Button>

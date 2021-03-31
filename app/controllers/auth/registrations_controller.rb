@@ -6,15 +6,15 @@ module Auth
       if user
         session[:user_id] = user.id
         render json: {
-                 status: :created,
+                 success: 1,
                  logged_in: true,
                  user: user,
-               }
+               }, status: :created
       else
         render json: {
-                 status: 500,
+                 success: 0,
                  logged_in: false,
-               }
+               }, status: 500
       end
     end
 

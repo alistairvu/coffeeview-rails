@@ -8,12 +8,13 @@ module Auth
       if user
         session[:user_id] = user.id
         render json: {
-                 status: :created,
+                 success: 1,
                  logged_in: true,
                  user: user,
-               }
+               }, status: :created
       else
         render json: {
+                 success: 0,
                  message: "Incorrect email or password",
                  logged_in: false,
                }, status: 401
@@ -23,20 +24,23 @@ module Auth
     def logout
       reset_session
       render json: {
+               success: 1,
                status: 200,
                logged_out: true,
              }
     end
 
-    def logged_in
+    def status
       if @current_user
         render json: {
+                 success: 1,
                  logged_in: true,
                  user: @current_user,
                }
       else
         reset_session
         render json: {
+                 success: 1,
                  logged_in: false,
                }
       end

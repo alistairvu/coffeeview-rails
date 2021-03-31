@@ -4,10 +4,10 @@ Rails.application.routes.draw do
       post :login, to: "sessions#create"
       post :signup, to: "registrations#create"
       delete :logout, to: "sessions#logout"
-      get :logged_in, to: "sessions#logged_in"
+      get :status, to: "sessions#status"
     end
 
-    resources :users, only: [:show, :update, :destroy]
+    resources :users, only: [:show, :update, :destroy, :index]
     get "/cafes/search", to: "cafes#search"
     resources :cafes, only: [:create, :show, :update, :destroy, :index, :reviews]
     get "/reviews/cafe/:id", to: "reviews#cafe"

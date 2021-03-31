@@ -17,7 +17,7 @@ const SearchPage: React.FC = () => {
       const { data } = await axios.get(
         `/api/cafes/search?q=${query}&page=${pageNumber}`
       )
-      if (data.status === 200) {
+      if (data.success) {
         return data.results
       }
       return []

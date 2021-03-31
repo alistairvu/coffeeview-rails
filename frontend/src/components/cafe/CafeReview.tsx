@@ -19,7 +19,7 @@ const CafeReview: React.FC<ReviewInterface> = (props) => {
           withCredentials: true,
         })
         console.log(data)
-        if (data.destroyed) {
+        if (data.success) {
           mutate(`/api/reviews/cafe/${slug}`)
           mutate(`/api/cafes/${slug}`)
         }

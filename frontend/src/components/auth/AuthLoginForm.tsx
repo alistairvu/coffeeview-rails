@@ -36,7 +36,7 @@ const AuthLoginForm: React.FC = () => {
         { withCredentials: true }
       )
       console.log(data)
-      if (data.logged_in) {
+      if (data.success) {
         setIsLoggingIn(false)
         dispatch(loginUser(data.user))
         history.push("/")

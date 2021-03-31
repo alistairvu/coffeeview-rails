@@ -33,7 +33,7 @@ const ProfileUpdateForm: React.FC = () => {
     const fetchInitData = async () => {
       try {
         const { data } = await axios.get(`/api/users/${userInfo.id}`)
-        if (data.status === "success") {
+        if (data.success) {
           setUpdateInfo({
             first_name: data.user.first_name,
             last_name: data.user.last_name,
@@ -82,7 +82,7 @@ const ProfileUpdateForm: React.FC = () => {
         { user: updateData },
         { withCredentials: true }
       )
-      if (data.updated) {
+      if (data.success) {
         setIsUpdating(false)
         dispatch(loginUser(data.user))
       }

@@ -42,7 +42,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const { data } = await axios.get("/api/auth/logged_in", {
+        const { data } = await axios.get("/api/auth/status", {
           withCredentials: true,
         })
 

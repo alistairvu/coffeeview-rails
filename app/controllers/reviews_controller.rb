@@ -7,14 +7,14 @@ class ReviewsController < ApplicationController
 
     if cafe and cafe.is_shown
       render json: {
-        status: :success,
+        success: 1,
         reviews: cafe.reviews.order("created_at DESC").map { |review| review_json(review) },
-      }
+      }, status: :success
     else
       render json: {
-        status: :not_found,
+        status: 1,
         message: "No matching cafe found",
-      }, stauts: :not_found
+      }, status: :not_found
     end
   end
 
@@ -23,14 +23,12 @@ class ReviewsController < ApplicationController
 
     if review
       render json: {
-        status: :created,
-        success: true,
+        success: 1,
         review: review_json(review),
-      }
+      }, status: :created
     else
       render json: {
-        status: 500,
-        success: false,
+        success: 0,
         message: "An error occurred",
       }, status: 500
     end
@@ -42,19 +40,16 @@ class ReviewsController < ApplicationController
     if review && @current_user.id == review.user_id
       review.destroy
       render json: {
-        status: :success,
-        success: true,
-      }
+        success: 1,
+      }, status: :success
     elsif @review && @current_user.id == review.user_id
       render json: {
-        status: 401,
-        success: false,
+        success: 0,
         message: "You cannot delete this review",
       }, status: 401
     else
       render json: {
-        status: 500,
-        success: false,
+        success: 0,
         message: "An error occurred",
       }, status: 500
     end
@@ -80,6 +75,7 @@ class ReviewsController < ApplicationController
   def check_login
     unless @current_user
       render json: {
+               success: 0,
                message: "You cannot do this action",
              }, status: 401
     end
