@@ -1,9 +1,11 @@
 import { AppHeader, AppFooter } from "./components/app"
+import Spinner from "react-bootstrap/Spinner"
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { useEffect, lazy, Suspense } from "react"
 import { loginUser, logoutUser, setLoaded } from "./redux/user"
 import { Switch, Route } from "react-router-dom"
+import NProgress from "nprogress"
 
 const HomePage = lazy(() => import("./pages/HomePage"))
 const LoginPage = lazy(() => import("./pages/LoginPage"))
@@ -14,10 +16,24 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage"))
 const SearchPage = lazy(() => import("./pages/SearchPage"))
 const CreateCafePage = lazy(() => import("./pages/CreateCafePage"))
 
+const SuspenseProgress = () => {
+  useEffect(() => {
+    NProgress.start()
+
+    return () => {
+      NProgress.done()
+    }
+  })
+
+  return (
+    <div className="loading-component d-flex justify-content-center mt-3">
+      <Spinner animation="border" />
+    </div>
+  )
+}
+
 const SuspenseComponent: React.FC = ({ children }) => (
-  <Suspense fallback={<div className="loading-component" />}>
-    {children}
-  </Suspense>
+  <Suspense fallback={<SuspenseProgress />}>{children}</Suspense>
 )
 
 const App: React.FC = () => {

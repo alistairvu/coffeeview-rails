@@ -11,7 +11,9 @@
     "heroku-postbuild": "yarn build && yarn deploy"
   },
   "dependencies": {
+    "@types/nprogress": "^0.2.0",
     "brotli-webpack-plugin": "^1.1.0",
+    "nprogress": "^0.2.0",
     "react-aspect-ratio": "^1.0.49",
     "react-preload-image": "^1.0.7",
     "react-rating": "^2.0.5"
