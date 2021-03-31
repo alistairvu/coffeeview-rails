@@ -38,5 +38,6 @@ module CoffeeviewRails
     config.api_only = true
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: "_coffeeview_app"
+    config.middleware.use Rack::Prerender, prerender_token: "IaTKSQhtfG56vxf7s83O"
   end
 end
